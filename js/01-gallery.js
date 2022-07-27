@@ -21,22 +21,18 @@ function galleryItemsMurkup({ preview, original, description }) {
 
 const onGallaryClick = (event) => {
   event.preventDefault();
-  const srcImg = event.target.dataset.source;
- console.log(srcImg);
+  onOpenImage(event.target.dataset.source);
 };
 
-galleryEl.addEventListener("click", onGallaryClick);
-
-const onOpenImage = (srcImg) => {
+const onOpenImage = (source) => {
   const instance = basicLightbox.create(`
      <img
             class="gallery__image"
-            src="${srcImg}"
+            src="${source}"
             alt="original"
           />
 `);
   instance.show()
   console.log(instance.element().querySelector('img').src);
 };
-
-galleryEl.addEventListener("click", onOpenImage);
+galleryEl.addEventListener("click", onGallaryClick);
