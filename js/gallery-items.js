@@ -64,23 +64,4 @@ export const galleryItems = [
   },
 ];
 
-
-
-function openModalImage(src) {
-	if (instanceModal?.visible()) {
-		instanceModal.close();
-	}
-
-	instanceModal = basicLightbox.create(
-		`<img src="${src}" width="1280" alt="original">`,
-		{
-			onClose: () => {
-				window.removeEventListener("keydown", onKeyboardClick);
-			},
-		}
-	);
-	instanceModal.show();
-	window.addEventListener("keydown", onKeyboardClick);
-	// console.log(instanceModal.element().querySelector('img').src);
-}
-
+ 
