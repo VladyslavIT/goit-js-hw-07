@@ -4,7 +4,6 @@ import { galleryItems } from "./gallery-items.js";
 // console.log(galleryItems);
 const galleryEl = document.querySelector(".gallery");
 const galleryHTML = galleryItems.map(galleryItemsMurkup).join("");
-let instance;
 galleryEl.insertAdjacentHTML("beforeend", galleryHTML);
 
 function galleryItemsMurkup({ preview, original, description }) {
@@ -25,7 +24,6 @@ const onGallaryClick = (event) => {
   onOpenImage(event.target.dataset.source);
 };
 
-
 const onOpenImage = (source) => {
   const instance = basicLightbox.create(`
      <img
@@ -36,19 +34,18 @@ const onOpenImage = (source) => {
 `);
   instance.show();
 
-  const currentSrc = instance.element().querySelector("img").src;
-  console.log(currentSrc);
-
-  if (instance?.visible()) {
-    return onEscapeClick();
-  }
- 
-};
-  const onEscapeClick = (event) => {
+  function escapeClick(event) {
     if (event.code === "Escape") {
-      instance.close();
+      return instance.close();
     }
-  };
-window.addEventListener("keydown", onEscapeClick);
-galleryEl.addEventListener("click", onGallaryClick);
+  }
+  function modalVisible(instance) {
+    if (instance?.visible()) {
+      return escapeClick();
+    }
+    return;
+  }
 
+  document.body.addEventListener("keydown", escapeClick);
+};
+galleryEl.addEventListener("click", onGallaryClick);
