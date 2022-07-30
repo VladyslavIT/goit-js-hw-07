@@ -33,14 +33,17 @@ const onOpenImage = (source) => {
             alt="original"
           />
 `,
-    function onClose() {
-      document.body.removeEventListener("keydown", escapeClick);
+    {
+      onShow: () => {
+        document.addEventListener("keydown", escapeClick);
+      },
+      onClose: () => {
+        document.removeEventListener("keydown", escapeClick);
+      },
     }
   );
 
   instance.show();
-
-  document.body.addEventListener("keydown", escapeClick);
 
   function escapeClick(event) {
     if (event.code === "Escape") {
