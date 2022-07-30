@@ -25,27 +25,28 @@ const onGallaryClick = (event) => {
 };
 
 const onOpenImage = (source) => {
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
      <img
             class="gallery__image"
             src="${source}"
             alt="original"
           />
-`);
+`,
+    function onClose() {
+      document.body.removeEventListener("keydown", escapeClick);
+    }
+  );
+
   instance.show();
+
+  document.body.addEventListener("keydown", escapeClick);
 
   function escapeClick(event) {
     if (event.code === "Escape") {
       return instance.close();
     }
   }
-  function modalVisible(instance) {
-    if (instance?.visible()) {
-      return escapeClick();
-    }
-    return;
-  }
-
-  document.body.addEventListener("keydown", escapeClick);
 };
+
 galleryEl.addEventListener("click", onGallaryClick);

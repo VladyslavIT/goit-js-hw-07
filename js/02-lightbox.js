@@ -12,8 +12,4 @@ function galleryItemsMurkup({ preview, original, description }) {
 </a>`;
 }
 
-function delay() {
-  var lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250 });
-}
-
-delay();
+const lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250 });
